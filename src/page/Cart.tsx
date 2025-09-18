@@ -11,7 +11,7 @@ interface CartItem {
 
 function Cart() {
   const [items, setItems] = useState<CartItem[]>([]);
-  const [name, setName] = useState("");      // новое поле
+  const [name, setName] = useState("");      
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [address, setAddress] = useState("");
@@ -30,7 +30,7 @@ function Cart() {
 
   // Обновить количество
   const updateQuantity = (id: number, quantity: number) => {
-    if (quantity < 1) return; // нельзя меньше 1
+    if (quantity < 1) return;
     API.put(`/cart/${id}`, { quantity }).then(res => {
       setItems(prev =>
         prev.map(item =>
@@ -47,9 +47,8 @@ function Cart() {
       return;
     }
 
-    // Формируем payload, который ожидает backend (OrderIn)
     const payload = {
-      name,      // новое поле
+      name,
       email,
       phone,
       address,
@@ -62,7 +61,7 @@ function Cart() {
     API.post("/cart/checkout", payload)
       .then(() => {
         alert("Заказ оформлен!");
-        setItems([]); // очищаем корзину
+        setItems([]);
         setName(""); setEmail(""); setPhone(""); setAddress("");
       })
       .catch(err => {
@@ -82,9 +81,7 @@ function Cart() {
           <b>{item.product_name}</b> — {item.product_price}$ × {item.quantity}
           <button onClick={() => updateQuantity(item.id, item.quantity + 1)} style={{ marginLeft: "10px" }}>+</button>
           <button onClick={() => updateQuantity(item.id, item.quantity - 1)} disabled={item.quantity <= 1}>-</button>
-          <button onClick={() => removeItem(item.id)} style={{ marginLeft: "10px", color: "red" }}>
-            Удалить
-          </button>
+          <button onClick={() => removeItem(item.id)} style={{ marginLeft: "10px", color: "red" }}>Удалить</button>
         </div>
       ))}
 
