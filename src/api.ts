@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://flower-delivery-y3lj.onrender.com", // <-- твой бекенд URL
+  baseURL: import.meta.env.VITE_API_URL || "https://flower-delivery-y3lj.onrender.com", 
   headers: {
     "Content-Type": "application/json",
   },
